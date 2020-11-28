@@ -171,7 +171,7 @@ function replaceNouns(template){
 
     //Keep track of nouns that have already been used
     //avoids duplicates
-    let used = [];
+    let nounSet = nouns.slice;
     let complete = false;
     let lastPos = 0;
 
@@ -208,6 +208,16 @@ function replaceNouns(template){
     }
 
     return template;
+}
+
+function replaceVerbs(template){
+    let verbTag = "<verb>"
+    let pastTag = "<p>"
+    let presentTag = "<c>"
+    let futureTag = "<f>"
+
+
+
 }
 
 
@@ -253,6 +263,16 @@ function selectAdjective(){
     let template = adjectives[index];
     console.log("\t\t"+adjective);
     return adjective;
+}
+
+function removeRandom(array){
+    //select a random template
+    let index = Math.floor(Math.random()*(array.length));
+    let element = array[index];
+
+    //remove the element from the array
+    array.splice(index,1);
+    return element;
 }
 
 //Primary script
