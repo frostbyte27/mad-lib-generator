@@ -5,7 +5,18 @@
  */
 
 //Mad Lib Templates
-const templates = [];
+const templates = [
+    "This <noun><s> is far too <adjective>. How is a <noun><s> supposed to <verb><f> when there is <a/an> <adjective> <noun><s>?",
+
+    "I sure do love <a/an> <adjective> <noun><s>, especially whent the <noun><s> decides to <verb><f>.",
+
+    "He decided to <verb> the <noun><p>, just so he could avoid the <adjective> <noun><s>.",
+
+    "Some <noun><p> are <adjective>, some <noun><p> are <adjective>, but we can all agree <noun><p> <verb><f> <noun><p>.",
+
+    "She wanted to <verb><f> the <noun><s>, but <adjective> <noun><p> wouldn't allow it."
+
+];
 
 //Each noun should include singular and plural version
 const nouns = [
@@ -139,11 +150,58 @@ const adjectives = [
  * Builds and returns a randomly generated Mad-Lib
  */
 function generateMadLib(){
+    //Select a template string
+    let template = selectTemplate();
 
 
 }
 
+function selectTemplate(){
+    console.log("Choosing Template: ");
 
+    //select a random template
+    let index = Math.floor(Math.random()*(templates.length));
+    let template = templates[index];
+    console.log(index+": "+template);
+    return template;
+}
+
+function selectNoun(isPlural){
+    console.log("Choosing a noun: ");
+
+    //select a random template
+    let index = Math.floor(Math.random()*(nouns.length));
+    let nounObj = nouns[index];
+
+    return isPlural ? nounObj.plural : nounObj.singular;
+}
+
+function selectVerb(tense){
+    console.log("Choosing Verb: ");
+
+    //select a random template
+    let index = Math.floor(Math.random()*(verbs.length));
+    let verbObj = verbs[index];
+
+    //Select either the past, present or future parameter
+    let verb = verbObj[tense];
+
+    console.log("\t\t"+verb);
+    return verb;
+}
+
+function selectAdjective(){
+    console.log("Choosing Adjective: ");
+
+    //select a random template
+    let index = Math.floor(Math.random()*(adjectives.length));
+    let template = adjectives[index];
+    console.log("\t\t"+adjective);
+    return adjective;
+}
 
 //Primary script
 console.log('Welcome to the Mad Lib Program');
+for(let i=1; i<=5; i++){
+    generateMadLib();
+}
