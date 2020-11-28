@@ -1,7 +1,15 @@
 Sentences
+---------
 
+This <noun> is far too <adjective>. How is a <noun> supposed to <verb> when there is a <adjective> <noun>?
 
+I sure do love a <adjective> <noun>, especially whent the <noun> decides to <verb>.
 
+He decided to <verb> the <noun>, just so he could avoid the <adjective> <noun>.
+
+Some <noun>s are <adjective>, some <noun>s are <adjective>, but we can all agree <nouns> <verb> <nouns>.
+
+She wanted to <verb> the <noun>, but <adjective> <noun> wouldn't allow it.
 
 
 Nouns
