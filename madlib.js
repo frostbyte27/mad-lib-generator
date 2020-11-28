@@ -153,8 +153,59 @@ function generateMadLib(){
     //Select a template string
     let template = selectTemplate();
 
+    //Replace all nouns
+
 
 }
+
+function replaceNouns(template){
+    let nounTag = "<noun>";
+    let pluralTag = "<p>";
+    let singularTag = "<s>";
+
+    //Keep track of nouns that have already been used
+    //avoids duplicates
+    let used = [];
+    let complete = false;
+    
+    while(!complete){
+        //replace any instances of singular nouns
+        let pos = template.search(nounTag+singularTag);
+        if( pos >= 0){
+            //a singular noun tag was found
+            //get a random noun, remove it from the 
+            let noun = selectNoun(false);
+
+            //determine a/an usage based on first char of noun
+            // if( template.slice(pos - ))
+
+            //replace with the actual selected noun
+            template = template.replace(nounTag+singularTag, noun);
+        }
+        else{
+            //replace any instances of plural nouns
+            let pos = template.search(nounTag+pluralTag);
+            if( pos >= 0){
+                //a singular noun tag was found
+                //get a random noun, remove it from the 
+                let noun = selectNoun(true);
+
+                //determine a/an usage based on first char of noun
+                // if( template.slice(pos - ))
+
+                //replace with the actual selected noun
+                template = template.replace(nounTag+pluralTag, noun);
+            }
+            else{
+                complete = true;
+            }
+        }
+    }
+
+    return template;
+
+}
+
 
 function selectTemplate(){
     console.log("Choosing Template: ");
@@ -202,6 +253,11 @@ function selectAdjective(){
 
 //Primary script
 console.log('Welcome to the Mad Lib Program');
-for(let i=1; i<=5; i++){
-    generateMadLib();
-}
+// for(let i=1; i<=5; i++){
+//     generateMadLib();
+// }
+
+console.log("Testing Noun Replacement...");
+let testStr = "This <noun><s> has many <noun><p> but only a <noun><s> can beat these <noun><p>, mofo.";
+console.log(testStr);
+console.log(replaceNouns(testStr));
