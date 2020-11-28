@@ -20,11 +20,11 @@ const templates = [
 
 //Each noun should include singular and plural version
 const nouns = [
-    {singular: "lettuce", plural: "lettuces"},
-    {singular: "pistol", plural: "pistols"},
-    {singular: "kitty cat", plural: "kitty cats"},
-    {singular: "place of business", plural: "places of business"},
-    {singular: "tank", plural: "tanks"},
+    {singular: "lettuce", plural: "lettuces", indef: "a"},
+    {singular: "pistol", plural: "pistols", indef: "a"},
+    {singular: "kitty cat", plural: "kitty cats", indef: "a"},
+    {singular: "place of business", plural: "places of business", indef: "a"},
+    {singular: "tank", plural: "tanks", indef: "a"}
 
 ];
 //Each verb should include past, present and future tense
@@ -162,44 +162,43 @@ function replaceNouns(template){
     let nounTag = "<noun>";
     let pluralTag = "<p>";
     let singularTag = "<s>";
+    let indefArt = "<a/an>";
 
     //Keep track of nouns that have already been used
     //avoids duplicates
     let used = [];
     let complete = false;
-    
-    while(!complete){
-        //replace any instances of singular nouns
-        let pos = template.search(nounTag+singularTag);
-        if( pos >= 0){
-            //a singular noun tag was found
-            //get a random noun, remove it from the 
-            let noun = selectNoun(false);
+    let lastPos = 0;
 
-            //determine a/an usage based on first char of noun
-            // if( template.slice(pos - ))
+    //find the next noun tag
+    let pos = template.search(nounTag);
+    while(pos >= 0){
+        
+        //a noun tag was found
+        //get a random noun, remove it from the choices
+        let noun = selectNoun();
 
+        //replace any preceding indefinite article with the one associated with this noun
+        let indefPos = template.slice(lastPos,pos).search(indefArt);
+        if(indefPos >= 0) template = template.replace(indefArt, noun.indef);
+
+        //check plurality, replace using the appropriate version of the noun
+        let pTag = template.slice(pos+nounTag.length,pos+nounTag.length+pluralTag.length);
+        if(pTag === singularTag){
             //replace with the actual selected noun
-            template = template.replace(nounTag+singularTag, noun);
+            template = template.replace(nounTag+singularTag, noun.singular);
+        }
+        else if(pTag === pluralTag){
+            //replace with the actual selected noun
+            template = template.replace(nounTag+pluralTag, noun.plural);
         }
         else{
-            //replace any instances of plural nouns
-            let pos = template.search(nounTag+pluralTag);
-            if( pos >= 0){
-                //a singular noun tag was found
-                //get a random noun, remove it from the 
-                let noun = selectNoun(true);
-
-                //determine a/an usage based on first char of noun
-                // if( template.slice(pos - ))
-
-                //replace with the actual selected noun
-                template = template.replace(nounTag+pluralTag, noun);
-            }
-            else{
-                complete = true;
-            }
+            console.log('Error replacing noun: '+pTag+' does not match any plurality tag');
         }
+
+        //find the next noun tag
+        pos = template.search(nounTag);
+        
     }
 
     return template;
@@ -217,14 +216,14 @@ function selectTemplate(){
     return template;
 }
 
-function selectNoun(isPlural){
+function selectNoun(){
     console.log("Choosing a noun: ");
 
     //select a random template
     let index = Math.floor(Math.random()*(nouns.length));
     let nounObj = nouns[index];
 
-    return isPlural ? nounObj.plural : nounObj.singular;
+    return nounObj;
 }
 
 function selectVerb(tense){
@@ -258,6 +257,6 @@ console.log('Welcome to the Mad Lib Program');
 // }
 
 console.log("Testing Noun Replacement...");
-let testStr = "This <noun><s> has many <noun><p> but only a <noun><s> can beat these <noun><p>, mofo.";
+let testStr = "So, <a/an> <noun><s> has many <noun><p> but only <a/an> <noun><s> can beat these <noun><p>, mofo.";
 console.log(testStr);
 console.log(replaceNouns(testStr));
