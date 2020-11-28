@@ -159,7 +159,12 @@ function generateMadLib(){
     let template = selectTemplate();
 
     //Replace all nouns
+    template = replaceNouns(template);
+    // console.log(typeof template);
+    //Replace verbs
+    template = replaceVerbs(template);
 
+    return template;
 
 }
 
@@ -169,19 +174,18 @@ function replaceNouns(template){
     let singularTag = "<s>";
     let indefArt = "<a/an>";
 
-    //Keep track of nouns that have already been used
-    //avoids duplicates
-    let nounSet = nouns.slice;
+    //get copy of nouns
+    let nounSet = nouns.slice();
     let complete = false;
     let lastPos = 0;
 
     //find the next noun tag
     let pos = template.search(nounTag);
     while(pos >= 0){
-        
+        //console.log("Available Nouns: "+nounSet);
         //a noun tag was found
         //get a random noun, remove it from the choices
-        let noun = selectNoun();
+        let noun = removeRandom(nounSet);
 
         //check plurality, replace using the appropriate version of the noun
         let pTag = template.slice(pos+nounTag.length,pos+nounTag.length+pluralTag.length);
@@ -216,7 +220,44 @@ function replaceVerbs(template){
     let presentTag = "<c>"
     let futureTag = "<f>"
 
-
+     //get copy of verbs
+     let verbSet = verbs.slice();
+     let complete = false;
+     let lastPos = 0;
+ 
+     //find the next noun tag
+     let pos = template.search(verbTag);
+     while(pos >= 0){
+         
+         console.log("Available Verbs: "+verbSet);
+         //a noun tag was found
+         //get a random noun, remove it from the choices
+         let verb = removeRandom(verbSet);
+ 
+         //check tense, replace using the appropriate version of the verb
+         let tTag = template.slice(pos+verbTag.length,pos+verbTag.length+pastTag.length);
+ 
+         switch(tTag){
+             case pastTag:
+                 {template = template.replace(verbTag+pastTag, verb.past); break;}
+            case presentTag:
+                 {template = template.replace(verbTag+presentTag, verb.present); break;}
+            case futureTag:
+                 {template = template.replace(verbTag+futureTag, verb.future); break;}
+            default:
+            {
+                console.log("unrecoginized tag: "+tTag);
+                //template = template.replace(verbTag+pastTag, verb.past); break;
+            }
+         }
+         
+ 
+         //find the next noun tag
+         pos = template.search(verbTag);
+         
+     }
+ 
+     return template;
 
 }
 
@@ -232,7 +273,7 @@ function selectTemplate(){
 }
 
 function selectNoun(){
-    console.log("Choosing a noun: ");
+    //console.log("Choosing a noun: ");
 
     //select a random template
     let index = Math.floor(Math.random()*(nouns.length));
@@ -266,6 +307,8 @@ function selectAdjective(){
 }
 
 function removeRandom(array){
+
+    // console.log("Type of "+array.name+": "+typeof array);
     //select a random template
     let index = Math.floor(Math.random()*(array.length));
     let element = array[index];
@@ -282,6 +325,6 @@ console.log('Welcome to the Mad Lib Program');
 // }
 
 console.log("Testing Noun Replacement...");
-let testStr = "So, <a/an> <noun><s> has many <noun><p> but only <a/an> <noun><s> can beat these <noun><p>, mofo.";
+let testStr = "So, <a/an> <noun><s> <verb><c> the <noun><p> but only <a/an> <noun><s> can <verb><f> these <noun><p>, mofo.";
 console.log(testStr);
-console.log(replaceNouns(testStr));
+console.log(generateMadLib(testStr));
