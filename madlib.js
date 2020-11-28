@@ -24,9 +24,14 @@ const nouns = [
     {singular: "pistol", plural: "pistols", indef: "a"},
     {singular: "kitty cat", plural: "kitty cats", indef: "a"},
     {singular: "place of business", plural: "places of business", indef: "a"},
-    {singular: "tank", plural: "tanks", indef: "a"}
+    {singular: "tank", plural: "tanks", indef: "a"},
+    {singular: "idiot", plural: "idiots", indef: "an"},
+    {singular: "toaster", plural: "toasters", indef: "a"},
+    {singular: "octopus", plural: "octopi", indef: "an"},
+    {singular: "international law enforcement agency", plural: "international law enforcement agencies", indef: "an"}
 
 ];
+
 //Each verb should include past, present and future tense
 
 const verbs = [
@@ -178,12 +183,13 @@ function replaceNouns(template){
         //get a random noun, remove it from the choices
         let noun = selectNoun();
 
+        //check plurality, replace using the appropriate version of the noun
+        let pTag = template.slice(pos+nounTag.length,pos+nounTag.length+pluralTag.length);
+
         //replace any preceding indefinite article with the one associated with this noun
         let indefPos = template.slice(lastPos,pos).search(indefArt);
         if(indefPos >= 0) template = template.replace(indefArt, noun.indef);
 
-        //check plurality, replace using the appropriate version of the noun
-        let pTag = template.slice(pos+nounTag.length,pos+nounTag.length+pluralTag.length);
         if(pTag === singularTag){
             //replace with the actual selected noun
             template = template.replace(nounTag+singularTag, noun.singular);
@@ -202,7 +208,6 @@ function replaceNouns(template){
     }
 
     return template;
-
 }
 
 
