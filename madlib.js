@@ -10,7 +10,7 @@ const templates = [
 
     "I sure do love <a/an> <adjective> <noun><s>, especially whent the <noun><s> decides to <verb><f>.",
 
-    "He decided to <verb> the <noun><p>, just so he could avoid the <adjective> <noun><s>.",
+    "He decided to <verb><f> the <noun><p>, just so he could avoid the <adjective> <noun><s>.",
 
     "Some <noun><p> are <adjective>, some <noun><p> are <adjective>, but we can all agree <noun><p> <verb><f> <noun><p>.",
 
@@ -164,6 +164,9 @@ function generateMadLib(){
     //Replace verbs
     template = replaceVerbs(template);
 
+    //Replace adjectives
+    template = replaceAdjectives(template);
+
     return template;
 
 }
@@ -225,13 +228,13 @@ function replaceVerbs(template){
      let complete = false;
      let lastPos = 0;
  
-     //find the next noun tag
+     //find the first verb tag
      let pos = template.search(verbTag);
      while(pos >= 0){
          
-         console.log("Available Verbs: "+verbSet);
-         //a noun tag was found
-         //get a random noun, remove it from the choices
+         //console.log("Available Verbs: "+verbSet);
+         //a verb tag was found
+         //get a random verb, remove it from the choices
          let verb = removeRandom(verbSet);
  
          //check tense, replace using the appropriate version of the verb
@@ -252,8 +255,37 @@ function replaceVerbs(template){
          }
          
  
-         //find the next noun tag
+         //find the next verb tag
          pos = template.search(verbTag);
+         
+     }
+ 
+     return template;
+
+}
+
+function replaceAdjectives(template){
+    let adjTag = "<adjective>"
+
+     //get copy of adjectives
+     let adjSet = adjectives.slice();
+     
+     let lastPos = 0;
+ 
+     //find the next adjective tag
+     let pos = template.search(adjTag);
+     while(pos >= 0){
+         
+         
+         //an adjective tag was found
+         //get a random adjective, remove it from the choices
+         let adj = removeRandom(adjSet);
+         
+         //replace the tag
+         template = template.replace(adjTag,adj);
+ 
+         //find the next adjective tag
+         pos = template.search(adjTag);
          
      }
  
@@ -263,48 +295,48 @@ function replaceVerbs(template){
 
 
 function selectTemplate(){
-    console.log("Choosing Template: ");
+    //console.log("Choosing Template: ");
 
     //select a random template
     let index = Math.floor(Math.random()*(templates.length));
     let template = templates[index];
-    console.log(index+": "+template);
+    //console.log(index+": "+template);
     return template;
 }
 
-function selectNoun(){
-    //console.log("Choosing a noun: ");
+// function selectNoun(){
+//     //console.log("Choosing a noun: ");
 
-    //select a random template
-    let index = Math.floor(Math.random()*(nouns.length));
-    let nounObj = nouns[index];
+//     //select a random template
+//     let index = Math.floor(Math.random()*(nouns.length));
+//     let nounObj = nouns[index];
 
-    return nounObj;
-}
+//     return nounObj;
+// }
 
-function selectVerb(tense){
-    console.log("Choosing Verb: ");
+// function selectVerb(tense){
+//     console.log("Choosing Verb: ");
 
-    //select a random template
-    let index = Math.floor(Math.random()*(verbs.length));
-    let verbObj = verbs[index];
+//     //select a random template
+//     let index = Math.floor(Math.random()*(verbs.length));
+//     let verbObj = verbs[index];
 
-    //Select either the past, present or future parameter
-    let verb = verbObj[tense];
+//     //Select either the past, present or future parameter
+//     let verb = verbObj[tense];
 
-    console.log("\t\t"+verb);
-    return verb;
-}
+//     console.log("\t\t"+verb);
+//     return verb;
+// }
 
-function selectAdjective(){
-    console.log("Choosing Adjective: ");
+// function selectAdjective(){
+//     console.log("Choosing Adjective: ");
 
-    //select a random template
-    let index = Math.floor(Math.random()*(adjectives.length));
-    let template = adjectives[index];
-    console.log("\t\t"+adjective);
-    return adjective;
-}
+//     //select a random template
+//     let index = Math.floor(Math.random()*(adjectives.length));
+//     let template = adjectives[index];
+//     console.log("\t\t"+adjective);
+//     return adjective;
+// }
 
 function removeRandom(array){
 
@@ -320,11 +352,11 @@ function removeRandom(array){
 
 //Primary script
 console.log('Welcome to the Mad Lib Program');
-// for(let i=1; i<=5; i++){
-//     generateMadLib();
-// }
+for(let i=1; i<=5; i++){
+    console.log(generateMadLib());
+}
 
-console.log("Testing Noun Replacement...");
-let testStr = "So, <a/an> <noun><s> <verb><c> the <noun><p> but only <a/an> <noun><s> can <verb><f> these <noun><p>, mofo.";
-console.log(testStr);
-console.log(generateMadLib(testStr));
+// console.log("Testing Noun Replacement...");
+// let testStr = "So, <a/an> <noun><s> <verb><c> the <noun><p> but only <a/an> <noun><s> can <verb><f> these <noun><p>, mofo.";
+// console.log(testStr);
+// console.log(generateMadLib(testStr));
