@@ -304,39 +304,6 @@ function selectTemplate(){
     return template;
 }
 
-// function selectNoun(){
-//     //console.log("Choosing a noun: ");
-
-//     //select a random template
-//     let index = Math.floor(Math.random()*(nouns.length));
-//     let nounObj = nouns[index];
-
-//     return nounObj;
-// }
-
-// function selectVerb(tense){
-//     console.log("Choosing Verb: ");
-
-//     //select a random template
-//     let index = Math.floor(Math.random()*(verbs.length));
-//     let verbObj = verbs[index];
-
-//     //Select either the past, present or future parameter
-//     let verb = verbObj[tense];
-
-//     console.log("\t\t"+verb);
-//     return verb;
-// }
-
-// function selectAdjective(){
-//     console.log("Choosing Adjective: ");
-
-//     //select a random template
-//     let index = Math.floor(Math.random()*(adjectives.length));
-//     let template = adjectives[index];
-//     console.log("\t\t"+adjective);
-//     return adjective;
-// }
 
 function removeRandom(array){
 
