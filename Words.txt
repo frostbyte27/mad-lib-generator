@@ -1,7 +1,15 @@
 Sentences
+---------
 
+This <noun><s> is far too <adjective>. How is a <noun><s> supposed to <verb><f> when there is <a/an> <adjective> <noun><s>?
 
+I sure do love <a/an> <adjective> <noun><s>, especially whent the <noun><s> decides to <verb><f>.
 
+He decided to <verb> the <noun><p>, just so he could avoid the <adjective> <noun><s>.
+
+Some <noun><p> are <adjective>, some <noun><p> are <adjective>, but we can all agree <noun><p> <verb><f> <noun><p>.
+
+She wanted to <verb><f> the <noun><s>, but <adjective> <noun><p> wouldn't allow it.
 
 
 Nouns
