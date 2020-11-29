@@ -318,12 +318,10 @@ function removeRandom(array){
 }
 
 //Primary script
-console.log('Welcome to the Mad Lib Program');
-for(let i=1; i<=5; i++){
-    console.log(generateMadLib());
-}
+// console.log('Welcome to the Mad Lib Program');
+// for(let i=1; i<=5; i++){
+    
+// }
 
-// console.log("Testing Noun Replacement...");
-// let testStr = "So, <a/an> <noun><s> <verb><c> the <noun><p> but only <a/an> <noun><s> can <verb><f> these <noun><p>, mofo.";
-// console.log(testStr);
-// console.log(generateMadLib(testStr));
+console.log(generateMadLib());
+
